@@ -70,7 +70,7 @@ lib     : libjaa.so
 
 clean:
 	rm -f *.c gcontainer-manager
-	rm -fr $(shell cat .gitignore)
+	rm -fr *.so *.gir *.typelib *.h *.vapi
 	rm -fr debug
 
 libjaa.so:
