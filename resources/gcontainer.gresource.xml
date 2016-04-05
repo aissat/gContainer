@@ -2,5 +2,9 @@
 <gresources>
   <gresource prefix="/org/aye7/gcontainer">
     <file preprocess="xml-stripblanks">gcontainer-manager.ui</file>
+    <file preprocess="xml-stripblanks">gcontainer-menu.ui</file>
+    <file preprocess="xml-stripblanks">gcontainer-item.ui</file>
+    <file preprocess="xml-stripblanks">gcontainer-prefs.ui</file>
+    <file preprocess="xml-stripblanks">gcontainer-about.ui</file>
   </gresource>
 </gresources>
