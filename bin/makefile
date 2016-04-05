@@ -1,49 +1,84 @@
+export LD_LIBRARY_PATH =.
+VC = valac
+GIR = g-ir-compiler
+
 
 COMMON_VALA_FLAGS = 	-g --save-temps -X -w \
-						--pkg=gio-2.0 \
-						--pkg=gtk+-3.0 \
-						--pkg=posix \
-						--target-glib=2.38 \
-						--pkg=json-glib-1.0 \
-						--pkg=libsoup-2.4 \
-						--pkg gee-0.8  \
-						--vapidir=../vapi \
-						--Xcc=-I../util \
-						-X -D_FILE_OFFSET_BITS=64 \
-						-X -DGETTEXT_PACKAGE="gcontainer" \
-						--target-glib=2.38 \
+			--thread \
+			--pkg libsoup-2.4 \
+			--pkg=gio-2.0 \
+			--pkg=gtk+-3.0 \
+			--pkg=posix \
+			--target-glib=2.38 \
+			--pkg=json-glib-1.0 \
+			--pkg=vte-2.91 \
+			 --pkg json-glib-1.0 \
+			 --pkg gee-0.8\
+			 -X -D_FILE_OFFSET_BITS=64 \
+			 -X -DGETTEXT_PACKAGE="gcontainer" \
+			 --target-glib=2.38 \
 
 
-COMMON_SOURCES = 	../util/JSONObject.vala
+COMMON_SOURCES = 	../util/JSONObject.vala \
+			../util/JParser.vala
+
+JAA_SOURECES   =	../util/Jaa/*.vala
+
+NAMESPACE = Jaa
+LIBNAME = libjaa
+LIBFILE = $(LIBNAME).so
+HFILE   = $(LIBNAME).h
+VAPIFILE= $(LIBNAME).vapi
+VERSION = 0.1
+
+GIRFILE = $(NAMESPACE)-$(VERSION).gir
+TYPEFILE = $(NAMESPACE)-$(VERSION).typelib
 
 GCONTAINER_SOURCES = 	../src/main.vala \
 			../src/gcontainer-manager.vala \
+			../src/gcontainer-item.vala \
+			../src/gcontainer-prefs.vala \
 			../src/gcontainer.vala
 
 DOCKER_SOURCES = 	../src/docker/docker-image.vala \
 			../src/docker/docker-container.vala \
-			../src/docker/docker-container-host-conf
+			../src/docker/docker-container-host-conf.vala
 
-#PREFERENCES_SOURCES = 	preferences_dialog.vala \
-#						choose_ignorepkgs_dialog.vala \
-#						mirrors_config.vala
 
-GCONTAINER_GRESOURCE_FILE = ../resources/gcontainer.gresource.xml ../resources/gcontainer_resources.c
 
-#UPDATER_GRESOURCE_FILE = ../resources/pamac.updater.gresource.xml
+GCONTAINER_GRESOURCE_FILE = ../resources/gcontainer.gresource.xml \
+			     ../resources/gcontainer_resources.c
 
-#INSTALLER_GRESOURCE_FILE = ../resources/pamac.installer.gresource.xml
+LIBFLAGS = --library=$(LIBNAME) -H $(HFILE) $(JAA_SOURECES)  -X -fPIC -X -shared -o $(LIBFILE) $(COMMON_VALA_FLAGS)  --gir=$(GIRFILE)
+GIRFLAGS = --shared-library=$(LIBFILE) --output=$(TYPEFILE) $(GIRFILE)
+
+FLAGS =  $(VAPIFILE) -X $(LIBFILE)  \
+			$(COMMON_VALA_FLAGS)\
+			--gresources $(GCONTAINER_GRESOURCE_FILE) \
+			$(GCONTAINER_SOURCES) $(DOCKER_SOURCES) $(COMMON_SOURCES) \
+			  -X -I. -o gcontainer-manager
+
+all:  lib $(TYPEFILE) binaries
+
+
+
+$(TYPEFILE):
+	$(GIR) $(GIRFLAGS)
 
 binaries: gcontainer-manager
+lib     : libjaa.so
 
 clean:
 	rm -f *.c gcontainer-manager
+	rm -fr $(shell cat .gitignore)
+	rm -fr debug
+
+libjaa.so:
+	$(VC) $(LIBFLAGS)
+
 
 gcontainer-manager: ../resources/gcontainer_resources.c $(COMMON_SOURCES) $(GCONTAINER_SOURCES)
-	valac 	-o gcontainer-manager \
-			$(COMMON_VALA_FLAGS) \
-			--gresources $(GCONTAINER_GRESOURCE_FILE) \
-			$(GCONTAINER_SOURCES)
+	$(VC) $(FLAGS)
 
 run:
 	./gcontainer-manager
