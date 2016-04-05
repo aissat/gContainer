@@ -1,6 +1,9 @@
 #Binary
 #binaries
 gcontainer-manager
+*.so
+*.gir
+*.typelib
 *.h
 *.vapi
 exec
