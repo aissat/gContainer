@@ -1,3 +1,7 @@
 #Binary
+#binaries
+gcontainer-manager
+*.h
+*.vapi
 exec
 *.c
