@@ -13,7 +13,7 @@ COMMON_VALA_FLAGS = 	-g --save-temps -X -w \
 			--pkg=json-glib-1.0 \
 			--pkg=vte-2.91 \
 			 --pkg json-glib-1.0 \
-			 --pkg gee-0.8\
+			 --pkg gee-1.0\
 			 -X -D_FILE_OFFSET_BITS=64 \
 			 -X -DGETTEXT_PACKAGE="gcontainer" \
 			 --target-glib=2.38 \
