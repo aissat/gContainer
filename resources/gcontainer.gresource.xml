@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
   <gresource prefix="/org/aye7/gcontainer">
-    <file preprocess="xml-stripblanks">container-manager.ui</file>
+    <file preprocess="xml-stripblanks">gcontainer-manager.ui</file>
   </gresource>
 </gresources>

@@ -17,7 +17,7 @@
  */
 namespace GContainer{
 
-	[GtkTemplate (ui="/org/aye7/gcontainer/container-manager.ui")]
+	[GtkTemplate (ui="/org/aye7/gcontainer/gcontainer-manager.ui")]
 	public class gContainerManager : Gtk.ApplicationWindow {
 		public gContainerManager (Gtk.Application application ) {
 			GLib.Object(application: application);

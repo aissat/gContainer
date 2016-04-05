@@ -1,5 +1,5 @@
 
-GCONTAINER_RESOURCES_FILES = container-manager.ui
+GCONTAINER_RESOURCES_FILES = gcontainer-manager.ui
 #				package-remove.png
 
 GCONTAINER_GRESOURCE_FILE = gcontainer.gresource.xml
@@ -11,4 +11,3 @@ clean:
 
 gcontainer_resources.c: $(GCONTAINER_RESOURCES_FILES) $(GCONTAINER_GRESOURCE_FILE)
 	glib-compile-resources $(GCONTAINER_GRESOURCE_FILE) --target=gcontainer_resources.c --generate-source
-
