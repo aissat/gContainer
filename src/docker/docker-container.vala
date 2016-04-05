@@ -2,26 +2,36 @@
  *
  * Copyright (C) 2016 aye7 <mr.aissat@gmail.com>
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
+ * Released under terms of Waqf Public License.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the latest version Waqf Public License as
+ * published by Ojuba.org.
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * The Latest version of the license can be found on
+ * "http://waqf.ojuba.org/license"
  */
-using EasyJSON;
 
-namespace GContainer {
-	public class DockerContainer : GLib.Object  {
+using Gee;
+namespace gContainer {
+	public class DockerContainer : Object  {
 
-		public string Id;
-		public string Hostname       { get; set; default = ""; }
+		public string Id              { get; set; default = ""; }
+		public string Image           { get; set; default = ""; }
+		public string ImageID         { get; set; default = ""; }
+		public string Command         { get; set; default = ""; }
+		public string Status          { get; set; default = ""; }
+		//public string NetworkSettings { get; set; default = ""; }
+		public int    Created         { get; set; default = -1; }
+		public int SizeRw             { get; set; default = -1; }
+		public int SizeRootFs         { get; set; default = -1; }
+		public ArrayList<string> Ports  { get; set; }
+		public ArrayList<string>Names   { get; set; }
+		//public ArrayList<string> Labels { get; set; }
+		//public DockerContainerHostConf HostConfig  { get; set; }
+
+		/*public string Hostname     { get; set; default = ""; }
 		public string Domainname     { get; set; default = ""; }
 		public string User           { get; set; default = ""; }
 		public bool   AttachStdin    { get; set; default = false; }
@@ -34,16 +44,21 @@ namespace GContainer {
 		public string Cmd ;
 		public string Entrypoint ;
 		public string Image;
-		public string Labels;
+
 		public string Volumes ;
 		public string WorkingDir ;
 		public bool   NetworkDisabled ;
 		public string MacAddress ;
 		public string ExposedPorts ;
 
-		public DockerContainerHostConf host_conf;
+		public DockerContainerHostConf host_conf;*/
 
+		construct{
+			//HostConfig = new DockerContainerHostConf ();
+			Names     = new ArrayList<string> ();
+			Ports      = new ArrayList<string> ();
 
+		}
 		public DockerContainer (){
 
 		}
@@ -55,19 +70,6 @@ namespace GContainer {
 		// POST /containers/create
 		public void create (){
 
-			var obj = new JSONObject(
-				"Hostname",         JVal.String,  "",
-				"Domainname",       JVal.String,  "",
-				"User",             JVal.String,  "",
-				"HostConfig",       JVal.Object,  new JSONObject("CustomerID", JVal.Int, 67890),
-				"AttachStdin",      JVal.Bool,    false,
-				"AttachStdout",     JVal.Bool,    true,
-				"AttachStderr",     JVal.Bool,    true,
-				"Tty",              JVal.Bool,    false,
-				"OpenStdin",        JVal.Bool,    false,
-				"StdinOnce",        JVal.Bool,    false,
-				"Env",              JVal.Array,   "array"
-				);
 		}
 
 		// GET /containers/(id)/json
