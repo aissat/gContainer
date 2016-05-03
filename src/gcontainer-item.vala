@@ -28,6 +28,9 @@ namespace  gContainer{
 		[GtkChild]
 		private Gtk.Label parentid_label;
 
+		[GtkChild]
+		private Gtk.LevelBar levelbar1;
+
 		public gContainerItem (Object? object) {
 			if ( object.get_type () == typeof (DockerImage) ){
 				var image = object as DockerImage;
@@ -35,15 +38,15 @@ namespace  gContainer{
 				parentid_label.set_text (image.ParentId);
 				var time = new DateTime.from_unix_utc (image.Created);
 				created_label.set_text  ( time.to_string () );
-				id_label.set_text       (image.Id);
+				id_label.set_text       (image.Id[7:-1]);
 			}else if ( object.get_type () == typeof (DockerContainer) ){
 				var container = object as DockerContainer;
 				source_title.set_text   (container.Image );
 				parentid_label.set_text (container.Names.get (0) );
 				var time = new DateTime.from_unix_utc (container.Created);
 				created_label.set_text  ( time.to_string () );
-				id_label.set_text       (container.Id);
-				//if (container.Status == "")
+				id_label.set_text       (container.Id[0:15]);
+				if(container.Status[0:2] == "Up")  levelbar1.set_value(100.0);
 			}
 			this.show_all();
 		}
