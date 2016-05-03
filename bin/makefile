@@ -20,7 +20,7 @@ COMMON_VALA_FLAGS = 	-g --save-temps -X -w \
 
 
 COMMON_SOURCES = 	../util/JSONObject.vala \
-			../util/JParser.vala
+#			../util/JParser.vala
 
 JAA_SOURECES   =	../util/Jaa/*.vala
 
