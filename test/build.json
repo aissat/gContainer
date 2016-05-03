@@ -1,0 +1,24 @@
+{
+	"sources" : "./",
+	"flags": [
+		"--thread",
+		"-g --save-temps -X -w"
+	],
+	"packages":	[
+		"json-glib-1.0",
+		"gio-2.0",
+		"gee-1.0",
+		"libsoup-2.4"
+	],
+	"libs"     :[
+		{
+			"sources"   : "../src/docker",
+			"name"      : "docker"
+		},
+		{
+			"sources"   : "../util/Jaa",
+			"name"     : "libjaa"
+		}
+	],
+	"output": "test"
+}
