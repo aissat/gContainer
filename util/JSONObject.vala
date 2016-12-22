@@ -1,3 +1,7 @@
+/*
+* https://github.com/unyieldinggrace/EasyJSON
+*/
+
 using Gee;
 
 namespace EasyJSON {
